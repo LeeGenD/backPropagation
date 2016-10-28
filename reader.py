@@ -125,6 +125,30 @@ def saveList(filePath, myList):
     f.close()
 
 '''
+@description 从文件中读取list
+@param {string} filePath 文件路径
+@param {list} myList 需要存储的list
+'''
+def readListFromFile(filePath, myList):
+    try:
+        f = open(filePath, 'r')
+    except:
+        print '"%s" 文件不存在，读取失败' % filePath
+        return False
+    content = f.read()
+    content = content.split('\n')
+    count = 0
+    for i in range(len(myList)):
+        if (isinstance(myList[i], list)):
+            for j in range(len(myList[i])):
+                myList[i][j] = float(content[count])
+                count += 1
+        else:
+            myList[i] = float(content[i])
+    f.close()
+    #print myList
+    return True
+'''
 @description 逐行读文件，保存在列表中
 @param {string} filePath 文件路径
 @return {list}

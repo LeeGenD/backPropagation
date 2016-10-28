@@ -8,17 +8,23 @@ import math
 import time
 
 def initWeightAndBias():
-    #初始化隐藏层
+    fromFileSuccess = readResultFromFile()
+    if fromFileSuccess:
+        print '从文件中初始化权值参数成功'
+        return
+    # 随机初始化隐藏层
     for i in range(CONFIG.NUM_H):
         CONFIG.bias_h[i] = getRandomNumber()
         for j in range(0, CONFIG.NUM_I):
             CONFIG.weight_ih[j][i] = getRandomNumber()
 
-    #初始化输出层
+    # 随机初始化输出层
     for i in range(CONFIG.NUM_O):
         CONFIG.bias_o[i] = getRandomNumber()
         for j in range(CONFIG.NUM_H):
             CONFIG.weight_ho[j][i] = getRandomNumber()
+
+    print '随机初始化权值参数成功'
 
 def getRandomNumber():
     return (random.randint(0, 1024) - 512) / 512.0
@@ -155,12 +161,20 @@ def saveResultToFile():
     reader.saveList(CONFIG.BIAS_O_FILE, CONFIG.bias_o)
     reader.saveList(CONFIG.BIAS_H_FILE, CONFIG.bias_h)
 
+'''
+@description 读取文件中的权值参数
+'''
+def readResultFromFile():
+    return (reader.readListFromFile(CONFIG.WEIGHT_IH_FILE, CONFIG.weight_ih)
+        and reader.readListFromFile(CONFIG.WEIGHT_HO_FILE, CONFIG.weight_ho)
+        and reader.readListFromFile(CONFIG.BIAS_O_FILE, CONFIG.bias_o)
+        and reader.readListFromFile(CONFIG.BIAS_H_FILE, CONFIG.bias_h))
+
 
 if __name__ == '__main__':
-    print '----------bp main----------'
 
     #初始参数
-    imageNumber = 10
+    imageNumber = 1000
 
     #初始化权值矩阵等
     initWeightAndBias()
@@ -178,18 +192,15 @@ if __name__ == '__main__':
     imageReader = reader.BitFileReader()
     imageReader.open(CONFIG.TRAIN_FILE)
     imageReader.step(16) #由于前面的都是无用数据，直接跳到16这个位置
-    #utils.printImage(utils.readImage(imageReader))
 
     imageList = []
     for i in range(imageNumber):
         imageList.append(utils.readImageLinear(imageReader))
     imageReader.close()
-    # for i in range(2):
-    #     utils.printImage(imageList[i])
 
     # 训练开始
     accuracy = experimentOnModel(labelList, imageList)
-    print '初始准确率：' + str(accuracy)
+    print '初始准确率：%s\n' % str(accuracy)
 
     trainTimes = 0
     startTime = time.time()
