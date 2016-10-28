@@ -173,7 +173,6 @@ if __name__ == '__main__':
     for i in range(imageNumber):
         labelList.append(labelReader.read())
     labelReader.close()
-    print labelList
 
     #读取图片数据
     imageReader = reader.BitFileReader()
@@ -201,10 +200,19 @@ if __name__ == '__main__':
         for i in range(len(imageList)):
             trainModel(labelList[i], imageList[i])
 
-        if trainTimes % 10 == 0:
+        if trainTimes % 10 == 0 or True:
             accuracy = experimentOnModel(labelList, imageList)
             print '第%d次训练，准确率：%f' % (trainTimes, accuracy)
             print '耗时%fs' % (time.time() - startTime)
 
-    saveResultToFile()
+    while True:
+        print '是否需要保存权重等数据到文件中？(Y/N)'
+        needSave = raw_input()
+        if needSave.upper() == 'Y':
+            saveResultToFile()
+            print '保存成功，训练结束'
+            break
+        elif needSave.upper() == 'N':
+            print '训练结束'
+            break
 

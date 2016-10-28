@@ -25,7 +25,7 @@ class BitFileReader:
             # 其实这里转换成的貌似不是int，而是unsigned int
             content = self.fileReader.read(4)
             content = ord(content[0]) * 16777216 + ord(content[1]) * 65536 + ord(content[2]) * 256 + ord(content[3])
-            print content
+            #print content
             #print self.fileReader.tell()
             return content
     def step(self, number=1):
@@ -43,7 +43,7 @@ def readFileBit(filePath='./foo'):
         byte = f.read(numSize)
         while byte != "":
             # print ord(byte)
-            print("%x"%(ord(byte)))
+            #print("%x"%(ord(byte)))
             byte = f.read(numSize)
 
 #readFileBit()
