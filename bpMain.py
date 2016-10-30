@@ -174,7 +174,7 @@ def readResultFromFile():
 if __name__ == '__main__':
 
     #初始参数
-    imageNumber = 1000
+    imageNumber = 60000
 
     #初始化权值矩阵等
     initWeightAndBias()

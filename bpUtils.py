@@ -56,8 +56,14 @@ def readImage(reader):
         imageList.append(imageRowList)
     return imageList
 
+def transGrayToBinary(value):
+    if value > 128:
+        return 1
+    else:
+        return 0
+
 def readImageLinear(reader):
     imageList = []
     for i in range(784):
-        imageList.append(reader.read())
+        imageList.append(transGrayToBinary(reader.read()))
     return imageList

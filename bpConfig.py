@@ -16,7 +16,7 @@ NUM_O = 10 #输出层单元个数
 
 THRESHOD = 0.99 #正确率
 RATE =0.05 #学习速率
-TRAIN_TIMES =10 #最大训练次数
+TRAIN_TIMES =20 #最大训练次数
 
 PATH = "./dataset/";
 TRAIN_FILE = PATH+"train-images-idx3-ubyte" #训练文件
