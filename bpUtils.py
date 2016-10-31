@@ -5,7 +5,7 @@
 @param {list<list>} imageList 图片灰度map
 '''
 def printImage(imageList):
-    printType = 3
+    printType = 4
     if printType == 1:
         # 打印二维列表
         for i in range(28):
@@ -39,6 +39,17 @@ def printImage(imageList):
                     printStr += '::'
                 else:
                     printStr += '**'
+            print printStr
+    elif printType == 4:
+        # 打印一维列表
+        for i in range(28):
+            printStr = ''
+            for j in range(28):
+                value = imageList[i * 28 + j]
+                if value:
+                    printStr += '**'
+                else:
+                    printStr += ' '
             print printStr
     print ''
 

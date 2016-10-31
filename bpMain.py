@@ -99,6 +99,10 @@ def experimentOnModel(labelList, imageList):
             outputLayer = computOutputUnit(hiddenLayter); #计算输出层
 
             label = getMaxIndex(outputLayer)
+            # if label != labelList[i]:
+            #     utils.printImage(image)
+            #     print labelList[i]
+            #     print label
 
             if labelList[i] == label:
                 correctTotal += 1
